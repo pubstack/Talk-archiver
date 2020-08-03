@@ -1,0 +1,39 @@
+---
+eleventyExcludeFromCollections: true
+layout: default
+pagination:
+  data: subjectURLs[9]
+  size: 1
+  alias: subjectURL
+permalink: "/{{ subjectURL }}/collections.html"
+---
+<div class="page-grid">
+  <aside class=" focus">
+    <h1>
+      <a href="/subjects/{{ subject.zooniverse_id }}">Subject: {{ subject.zooniverse_id }}</a>
+    </h1>
+    <p class="subject">
+      {% subjectImage subject, 'standard' %}
+      <a href="/api/subjects/{{ subject.zooniverse_id }}.json">
+        Full subject data (<abbr title="JavaScript Object Notation">JSON</abbr>)
+      </a>
+    </p>
+    <h2>Comments</h2>
+    <ul>
+    {%- for comment in subject.discussion.comments -%}
+      {% discussionComment comment=comment %}
+    {%- endfor -%}
+    </ul>
+  </aside>
+
+  <main>
+    <h2>Collections</h2>
+    <ul>
+      {%- for collection in subject.collections -%}
+        <li>
+           {% collectionSummary collection, 4 %}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </main>
+</div>
